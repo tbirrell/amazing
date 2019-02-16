@@ -30,31 +30,31 @@ class CommentController extends Controller
     
     protected function can_comment($replying_to, $id)
     {
-        //if a reply, we have a special check
-        if ($replying_to === 'comment') {
-            //get parent
-            $parent = Comment::find($id);
-        
-            //check to see if current user is the author of parent
-            if ($parent->user_id === auth()->user()->id) {
-                $this->cant_comment_because = 'Replying to own comment not allowed';
-                return false;
-            }
-        
-        }
-        
         //get last comment for post
         $last_comment = Comment::where('repliable_type', $replying_to)
                                ->where('repliable_id', $id)
                                ->orderBy('created_at', 'desc')
                                ->first();
         
+        //if a reply, we have a special check
+        if ($replying_to === 'comment') {
+            //get parent
+            $parent = Comment::find($id);
+        
+            //check to see if current user is the author of parent
+            //unless a comment already exists
+            if ($parent->user_id === auth()->user()->id && $last_comment === null) {
+                $this->cant_comment_because = 'Replying first is not allowed';
+                return false;
+            }
+        }
+        
         //if there are not other comments
         if ($last_comment === null) {
             return true;
         }
         
-        //check to see if current user posted it.
+        //check to see if current user posted last comment/reply
         if ($last_comment->user_id !== auth()->user()->id) {
             return true;
         }
