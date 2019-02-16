@@ -44,6 +44,14 @@ class User extends Authenticatable implements JWTSubject
         })->get();
     }
     
+    //=== ATTRIBUTES ===//
+    public function setPasswordAttribute($password)
+    {
+        if (!empty($password)) {
+            $this->attributes['password'] = bcrypt($password);
+        }
+    }
+    
     //=== METHODS ===//
     public function getJWTIdentifier()
     {
@@ -53,12 +61,5 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-    }
-    
-    public function setPasswordAttribute($password)
-    {
-        if (!empty($password)) {
-            $this->attributes['password'] = bcrypt($password);
-        }
     }
 }

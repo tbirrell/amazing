@@ -15,15 +15,14 @@ use Illuminate\Http\Request;
 
 //create user
 Route::post('/register', 'API\AuthController@register');
-//auth user
+//authenticate user
 Route::post('/login', 'API\AuthController@login');
 
 Route::group(['middleware' => ['jwt.auth']], function() {
     //create post
     Route::post('/posts', 'API\PostController@create');
-    //comment on post
+    //comment and reply on posts and comments
     Route::post('/post/comment', 'API\CommentController@create');
     //like/dislike post or comment
     Route::post('/post/react', 'API\PostController@react');
-    //return all
 });
