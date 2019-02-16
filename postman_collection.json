@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "296f0a11-bd7c-44b7-9016-2dab06a4a4f4",
+		"name": "Amazing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register a User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ad9f086-d697-404e-a7aa-71217690e2cd",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test_user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test_pass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test_user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test_pass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Title of the post",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "Body of the post",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/posts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "repliable_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "repliable_type",
+							"value": "post",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "This is a comment",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/post/comment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"post",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reply to a Comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "repliable_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "repliable_type",
+							"value": "comment",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "this is a reply",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/post/comment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"post",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Like a Post",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "reactionable_type",
+							"value": "post",
+							"type": "text"
+						},
+						{
+							"key": "reactionable_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "like",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/post/react",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"post",
+						"react"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dislike a Comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "reactionable_type",
+							"value": "comment",
+							"type": "text"
+						},
+						{
+							"key": "reactionable_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "like",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/post/react",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"post",
+						"react"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "abff4d2f-4071-4b67-9d48-715bf6e45fbd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2127f5df-1d67-4808-b5f2-2c122111d8b0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "a891d1cb-561e-4483-8a47-c81eec887a5b",
+			"key": "auth_token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hbWF6aW5nLmxvY2FsLmRldlwvYXBpXC9yZWdpc3RlciIsImlhdCI6MTU1MDMwNDc3NSwiZXhwIjoxNTUwMzA4Mzc1LCJuYmYiOjE1NTAzMDQ3NzUsImp0aSI6Iml2ZFY1YVFjbGxuNFI5NFUiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.LOYhskvAeF6UH_CRspC8IIYUTXfzAwpH0SsE3ZaZP5w",
+			"type": "string"
+		},
+		{
+			"id": "d2631545-8b64-434c-a2c8-80106e06041d",
+			"key": "url",
+			"value": "amazing.local.dev",
+			"type": "string"
+		}
+	]
+}
