@@ -14,6 +14,11 @@ class Post extends Model
         return $this->morphOne(Reaction::class, 'reactionable');
     }
     
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'repliable');
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);

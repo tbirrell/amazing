@@ -14,6 +14,16 @@ class Comment extends Model
         return $this->morphOne(Reaction::class, 'reactionable');
     }
     
+    public function repliable()
+    {
+        return $this->morphTo();
+    }
+    
+    public function replies()
+    {
+        return $this->morphMany(self::class, 'repliable');
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);
