@@ -9,31 +9,35 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    
+    //=== RELATIONSHIPS ===//
+    public function posts()
+    {
+        $this->hasMany(Post::class);
+    }
+    
+    public function comments()
+    {
+        $this->hasMany(Comment::class);
+    }
+    
+    public function reactions()
+    {
+        $this->hasMany(Reaction::class);
+    }
+    
+    //=== SCOPES ===//
+    public function scopeLikes($query)
+    {
+        $query->whereHas('reactions', function ($likes) {
+            $likes->where('reaction', 1);
+        })->get();
+    }
+    
+    public function scopeDislikes($query)
+    {
+        $query->whereHas('reactions', function ($dislikes) {
+            $dislikes->where('reaction', 0);
+        })->get();
+    }
 }
