@@ -24,7 +24,6 @@ Route::group(['middleware' => ['jwt.auth']], function() {
     //comment on post
     Route::post('/post/comment', 'API\CommentController@create');
     //like/dislike post or comment
-    Route::post('/post/like', 'API\PostController@like');
-    Route::post('/post/dislike', 'API\PostController@dislike');
+    Route::post('/post/react', 'API\PostController@react');
     //return all
 });
